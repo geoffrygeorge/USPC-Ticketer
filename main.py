@@ -1,5 +1,8 @@
 import streamlit as st
 from booking import user_booking
+from utils import ticketer_bg
+
+#ticketer_bg.enable_svg_bg()
 
 def main():
     st.set_page_config(
@@ -17,7 +20,6 @@ def main():
     st.html("""
                 <style>
                     .stAppHeader {visibility: hidden;}
-                    footer {visibility: hidden !important;}
                 </style>
             """)
 

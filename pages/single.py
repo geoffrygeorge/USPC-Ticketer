@@ -1,8 +1,16 @@
 import streamlit as st
+from utils import ticketer_bg
+
+#ticketer_bg.enable_svg_bg()
+
+if st.button("Back to Home Page", icon=":material/arrow_back_ios_new:", type="primary"):
+    if "booking_type" in st.session_state:
+        del st.session_state.booking_type
+    st.rerun()
 
 st.title("Single Booking")
 
-GOLD_TAB, PLATINUM_TAB, DIAMOND_TAB = st.tabs(["Gold", "Platinum", "Diamond"], width="stretch")
+GOLD_TAB, PLATINUM_TAB, DIAMOND_TAB = st.tabs(["Gold 🪙", "Platinum 🔘", "Diamond 💎"], width="stretch")
 
 with GOLD_TAB:
     FORM_CATEGORY = "Single" # Differentiates between Single or Family Tickets
@@ -10,9 +18,10 @@ with GOLD_TAB:
     FORM_TICKET_TYPE = "Single - Gold" # This is the Ticket Type initialised in the form
 
     with st.form("single_gold_form"):
-        FIRST_NAME = st.text_input("First Name", key="single_gold_first_name")
-        LAST_NAME = st.text_input("Last Name", key="single_gold_last_name")
-        EMAIL = st.text_input("Email", key="single_gold_email")
+        st.subheader("Gold Booking Form", divider="blue")
+        FIRST_NAME = st.text_input("First Name", icon=":material/id_card:", key="single_gold_first_name")
+        LAST_NAME = st.text_input("Last Name", icon=":material/id_card:", key="single_gold_last_name")
+        EMAIL = st.text_input("Email", icon=":material/mail:", key="single_gold_email")
         form_submitted = st.form_submit_button("Confirm 1 Order!")
     
     # BEGIN FORM LOGIC
@@ -77,9 +86,10 @@ with PLATINUM_TAB:
     FORM_TICKET_TYPE = "Single - Platinum" # This is the Ticket Type initialised in the form
 
     with st.form("single_platinum_form"):
-        FIRST_NAME = st.text_input("First Name", key="single_platinum_first_name")
-        LAST_NAME = st.text_input("Last Name", key="single_platinum_last_name")
-        EMAIL = st.text_input("Email", key="single_platinum_email")
+        st.subheader("Platinum Booking Form", divider="blue")
+        FIRST_NAME = st.text_input("First Name", icon=":material/id_card:", key="single_platinum_first_name")
+        LAST_NAME = st.text_input("Last Name", icon=":material/id_card:", key="single_platinum_last_name")
+        EMAIL = st.text_input("Email", icon=":material/mail:", key="single_platinum_email")
         form_submitted = st.form_submit_button("Confirm 1 Order!")
 
     # BEGIN FORM LOGIC
@@ -144,9 +154,10 @@ with DIAMOND_TAB:
     FORM_TICKET_TYPE = "Single - Diamond" # This is the Ticket Type initialised in the form
 
     with st.form("single_diamond_form"):
-        FIRST_NAME = st.text_input("First Name", key="single_diamond_first_name")
-        LAST_NAME = st.text_input("Last Name", key="single_diamond_last_name")
-        EMAIL = st.text_input("Email", key="single_diamond_email")
+        st.subheader("Diamond Booking Form", divider="blue")
+        FIRST_NAME = st.text_input("First Name", icon=":material/id_card:", key="single_diamond_first_name")
+        LAST_NAME = st.text_input("Last Name", icon=":material/id_card:", key="single_diamond_last_name")
+        EMAIL = st.text_input("Email", icon=":material/mail:", key="single_diamond_email")
         form_submitted = st.form_submit_button("Confirm 1 Order!")
 
     # BEGIN FORM LOGIC

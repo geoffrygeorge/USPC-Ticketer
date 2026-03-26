@@ -4,9 +4,11 @@ from utils import asset_gen
 
 def user_booking():
 
-    @st.dialog(" ", width="small", dismissible=False)
+    @st.dialog(" ", width="small", dismissible=True)
     def select_booking():
         st.subheader("Welcome to the :blue[USPC Ticket Booking Platform]", width="stretch")
+
+        st.divider()
 
         options = ["Single", "Family"]
         booking_option = st.pills(
@@ -24,10 +26,11 @@ def user_booking():
 
     # Asset generation
     asset_gen.home_logo("assets/USPC_LOGO.png")
-    asset_gen.home_title("USPC Manchester")
-    asset_gen.sub_home_title("Voice of Grace (Ticket Booking Platform)")
+    asset_gen.home_title("Voice of Grace - 2026")
 
-    with st.expander("Price & Booking Info", icon="⚠️", expanded=False):
+    st.divider()
+
+    with st.expander("Price & Booking Info (Please read before proceeding)", icon=":material/info:", expanded=False):
 
         st.write("Price & Booking Info will come here->")
 
@@ -36,7 +39,7 @@ def user_booking():
 
     EMPTY_COL_1, BOOKING_BUTTON_COLUMN, EMPTY_COL_2 = st.columns([2, 1, 2], gap="small", vertical_alignment="center")
     with BOOKING_BUTTON_COLUMN:
-        if st.button(":material/login:", type="primary", key="booking_primary", width="stretch", help="Start Booking!"):
+        if st.button("Book Here!", type="primary", key="booking_primary", width="stretch", help="Start Booking!"):
             select_booking()
             st.stop()
         
