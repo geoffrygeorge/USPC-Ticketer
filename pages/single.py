@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_phone_number import st_phone_number
 from utils import ticketer_bg
 from contextlib import contextmanager
 from modules import airtable_functions
@@ -48,16 +49,19 @@ with GOLD_TAB:
         FIRST_NAME = st.text_input("First Name", placeholder="Enter your first name", icon=":material/id_card:", key="single_gold_first_name")
         LAST_NAME = st.text_input("Last Name", placeholder="Enter your last name", icon=":material/id_card:", key="single_gold_last_name")
         EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", key="single_gold_email")
+        mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key="single_gold_mobile_number")
+        if mobile_number_data and isinstance(mobile_number_data, dict):
+            MOBILE_NUMBER = mobile_number_data.get("number")
         single_gold_form_submitted = st.form_submit_button("Request one Gold Order!", icon=":material/add_shopping_cart:")
     
     @st.dialog("Confirm Booking", width="small")
-    def show_single_gold_confirm_dialog(first_name, last_name, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula):
+    def show_single_gold_confirm_dialog(first_name, last_name, mobile_number, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula):
         st.write(f"Are you sure you want to confirm the booking for **{first_name} {last_name}**?")
 
         with st_horizontal():
             if st.button("Confirm", type="primary", width="stretch", key="single_gold_confirm_button"):
                 try:
-                    airtable_functions.airtable_single_ticket_assigner(first_name, last_name, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula)
+                    airtable_functions.airtable_single_ticket_assigner(first_name, last_name, mobile_number, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula)
 
                     st.session_state.booking_success_single_gold = True
                     st.session_state.booked_name_single_gold = first_name
@@ -71,20 +75,21 @@ with GOLD_TAB:
                 st.rerun()
 
     if single_gold_form_submitted:
-        if not FIRST_NAME or not LAST_NAME or not EMAIL:
+        if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_single_gold = {
                 "first_name": FIRST_NAME,
                 "last_name": LAST_NAME,
+                "mobile_number": MOBILE_NUMBER,
                 "email": EMAIL,
                 "category": FORM_CATEGORY,
                 "event_order_id": EVENT_ORDER_ID,
                 "ticket_type": FORM_TICKET_TYPE,
                 "formula": AVAILABLE_TICKET_FILTER_FORMULA
             }
-            show_single_gold_confirm_dialog(FIRST_NAME, LAST_NAME, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
+            show_single_gold_confirm_dialog(FIRST_NAME, LAST_NAME, MOBILE_NUMBER, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
 
     # Check for success
     if st.session_state.get("booking_success_single_gold"):
@@ -109,16 +114,19 @@ with PLATINUM_TAB:
         FIRST_NAME = st.text_input("First Name", placeholder="Enter your first name", icon=":material/id_card:", key="single_platinum_first_name")
         LAST_NAME = st.text_input("Last Name", placeholder="Enter your last name", icon=":material/id_card:", key="single_platinum_last_name")
         EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", key="single_platinum_email")
+        mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key="single_platinum_mobile_number")
+        if mobile_number_data and isinstance(mobile_number_data, dict):
+            MOBILE_NUMBER = mobile_number_data.get("number")
         single_platinum_form_submitted = st.form_submit_button("Request one Platinum Order!", icon=":material/add_shopping_cart:")
 
     @st.dialog("Confirm Booking", width="small")
-    def show_single_platinum_confirm_dialog(first_name, last_name, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula):
+    def show_single_platinum_confirm_dialog(first_name, last_name, mobile_number, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula):
         st.write(f"Are you sure you want to confirm the booking for **{first_name} {last_name}**?")
 
         with st_horizontal():
             if st.button("Confirm", type="primary", width="stretch", key="single_platinum_confirm_button"):
                 try:
-                    airtable_functions.airtable_single_ticket_assigner(first_name, last_name, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula)
+                    airtable_functions.airtable_single_ticket_assigner(first_name, last_name, mobile_number, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula)
 
                     st.session_state.booking_success_single_platinum = True
                     st.session_state.booked_name_single_platinum = first_name
@@ -132,20 +140,21 @@ with PLATINUM_TAB:
                 st.rerun()
 
     if single_platinum_form_submitted:
-        if not FIRST_NAME or not LAST_NAME or not EMAIL:
+        if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_single_platinum = {
                 "first_name": FIRST_NAME,
                 "last_name": LAST_NAME,
+                "mobile_number": MOBILE_NUMBER,
                 "email": EMAIL,
                 "category": FORM_CATEGORY,
                 "event_order_id": EVENT_ORDER_ID,
                 "ticket_type": FORM_TICKET_TYPE,
                 "formula": AVAILABLE_TICKET_FILTER_FORMULA
             }
-            show_single_platinum_confirm_dialog(FIRST_NAME, LAST_NAME, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
+            show_single_platinum_confirm_dialog(FIRST_NAME, LAST_NAME, MOBILE_NUMBER, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
 
     # Check for success
     if st.session_state.get("booking_success_single_platinum"):
@@ -170,16 +179,19 @@ with DIAMOND_TAB:
         FIRST_NAME = st.text_input("First Name", placeholder="Enter your first name", icon=":material/id_card:", key="single_diamond_first_name")
         LAST_NAME = st.text_input("Last Name", placeholder="Enter your last name", icon=":material/id_card:", key="single_diamond_last_name")
         EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", key="single_diamond_email")
+        mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key="single_diamond_mobile_number")
+        if mobile_number_data and isinstance(mobile_number_data, dict):
+            MOBILE_NUMBER = mobile_number_data.get("number")
         single_diamond_form_submitted = st.form_submit_button("Request one Diamond Order!", icon=":material/add_shopping_cart:")
 
     @st.dialog("Confirm Booking", width="small")
-    def show_single_diamond_confirm_dialog(first_name, last_name, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula):
+    def show_single_diamond_confirm_dialog(first_name, last_name, mobile_number, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula):
         st.write(f"Are you sure you want to confirm the booking for **{first_name} {last_name}**?")
 
         with st_horizontal():
             if st.button("Confirm", type="primary", width="stretch", key="single_diamond_confirm_button"):
                 try:
-                    airtable_functions.airtable_single_ticket_assigner(first_name, last_name, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula)
+                    airtable_functions.airtable_single_ticket_assigner(first_name, last_name, mobile_number, email, form_category, event_order_id, form_ticket_type, available_ticket_filter_formula)
 
                     st.session_state.booking_success_single_diamond = True
                     st.session_state.booked_name_single_diamond = first_name
@@ -193,20 +205,21 @@ with DIAMOND_TAB:
                 st.rerun()
 
     if single_diamond_form_submitted:
-        if not FIRST_NAME or not LAST_NAME or not EMAIL:
+        if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_single_diamond = {
                 "first_name": FIRST_NAME,
                 "last_name": LAST_NAME,
+                "mobile_number": MOBILE_NUMBER,
                 "email": EMAIL,
                 "category": FORM_CATEGORY,
                 "event_order_id": EVENT_ORDER_ID,
                 "ticket_type": FORM_TICKET_TYPE,
                 "formula": AVAILABLE_TICKET_FILTER_FORMULA
             }
-            show_single_diamond_confirm_dialog(FIRST_NAME, LAST_NAME, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
+            show_single_diamond_confirm_dialog(FIRST_NAME, LAST_NAME, MOBILE_NUMBER, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
 
     # Check for success
     if st.session_state.get("booking_success_single_diamond"):
