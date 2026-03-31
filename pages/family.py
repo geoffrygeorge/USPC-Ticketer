@@ -3,8 +3,23 @@ from streamlit_phone_number import st_phone_number
 from utils import ticketer_bg
 from contextlib import contextmanager
 from modules import airtable_functions
+import phonenumbers
+import re
 
 #ticketer_bg.enable_svg_bg()
+
+def mobile_number_verifier(mobile_number):
+    try:
+        # Enforce format: +447xxxxxxxxx
+        if not re.match(r"^\+447\d{9}$", mobile_number):
+            return False
+        
+        # Double check with phonenumbers
+        parsed = phonenumbers.parse(mobile_number, "GB")
+        return phonenumbers.is_valid_number(parsed)
+    
+    except:
+        return False
 
 horizontal_style="""<style class="hide-element">
                         .element-container:has(.hide-element) {
@@ -66,10 +81,12 @@ with GOLD_TAB:
 
         FIRST_NAME = st.text_input("First Name", placeholder="Enter your first name", icon=":material/id_card:", key=f"family_gold_first_name_{st.session_state.get('family_gold_counter_first_name', 0)}")
         LAST_NAME = st.text_input("Last Name", placeholder="Enter your last name", icon=":material/id_card:", key=f"family_gold_last_name_{st.session_state.get('family_gold_counter_last_name', 0)}")
-        EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", key=f"family_gold_email_{st.session_state.get('family_gold_counter_email', 0)}")
-        mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key=f"family_gold_mobile_number_{st.session_state.get('family_gold_counter_mobile_number', 0)}")
-        if mobile_number_data and isinstance(mobile_number_data, dict):
-            MOBILE_NUMBER = mobile_number_data.get("number")
+        EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", help="Please enter the correct email.", key=f"family_gold_email_{st.session_state.get('family_gold_counter_email', 0)}")
+        #mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key=f"family_gold_mobile_number_{st.session_state.get('family_gold_counter_mobile_number', 0)}")
+        #if mobile_number_data and isinstance(mobile_number_data, dict):
+            #MOBILE_NUMBER = mobile_number_data.get("number")
+
+        MOBILE_NUMBER = st.text_input("Mobile Number", placeholder="Enter your mobile number (e.g.: +447xxxxxxxxx)", icon=":material/call:", help="Please enter the correct mobile number in the provided format without spaces.", key=f"family_gold_mobile_number_{st.session_state.get('family_gold_counter_mobile_number', 0)}")
 
         is_family_gold_disabled = AVAILABLE_TICKET_COUNT is None or AVAILABLE_TICKET_COUNT == 0
         family_gold_form_button_label = "Request one **Gold** Order!" if not is_family_gold_disabled else "No More Tickets Available!"
@@ -106,6 +123,8 @@ with GOLD_TAB:
     if family_gold_form_submitted:
         if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
+        elif not mobile_number_verifier(MOBILE_NUMBER):
+            st.error("Please enter a valid mobile number in the format, +447xxxxxxxxx!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_family_gold = {
@@ -153,10 +172,12 @@ with PLATINUM_TAB:
 
         FIRST_NAME = st.text_input("First Name", placeholder="Enter your first name", icon=":material/id_card:", key=f"family_platinum_first_name_{st.session_state.get('family_platinum_counter_first_name', 0)}")
         LAST_NAME = st.text_input("Last Name", placeholder="Enter your last name", icon=":material/id_card:", key=f"family_platinum_last_name_{st.session_state.get('family_platinum_counter_last_name', 0)}")
-        EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", key=f"family_platinum_email_{st.session_state.get('family_platinum_counter_email', 0)}")
-        mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key=f"family_platinum_mobile_number_{st.session_state.get('family_platinum_counter_mobile_number', 0)}")
-        if mobile_number_data and isinstance(mobile_number_data, dict):
-            MOBILE_NUMBER = mobile_number_data.get("number")
+        EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", help="Please enter the correct email.", key=f"family_platinum_email_{st.session_state.get('family_platinum_counter_email', 0)}")
+        #mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key=f"family_platinum_mobile_number_{st.session_state.get('family_platinum_counter_mobile_number', 0)}")
+        #if mobile_number_data and isinstance(mobile_number_data, dict):
+            #MOBILE_NUMBER = mobile_number_data.get("number")
+
+        MOBILE_NUMBER = st.text_input("Mobile Number", placeholder="Enter your mobile number (e.g.: +447xxxxxxxxx)", icon=":material/call:", help="Please enter the correct mobile number in the provided format without spaces.", key=f"family_platinum_mobile_number_{st.session_state.get('family_platinum_counter_mobile_number', 0)}")
 
         is_family_platinum_disabled = AVAILABLE_TICKET_COUNT is None or AVAILABLE_TICKET_COUNT == 0
         family_platinum_form_button_label = "Request one **Platinum** Order!" if not is_family_platinum_disabled else "No More Tickets Available!"
@@ -193,6 +214,8 @@ with PLATINUM_TAB:
     if family_platinum_form_submitted:
         if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
+        elif not mobile_number_verifier(MOBILE_NUMBER):
+            st.error("Please enter a valid mobile number in the format, +447xxxxxxxxx!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_family_platinum = {
@@ -240,10 +263,12 @@ with DIAMOND_TAB:
 
         FIRST_NAME = st.text_input("First Name", placeholder="Enter your first name", icon=":material/id_card:", key=f"family_diamond_first_name_{st.session_state.get('family_diamond_counter_first_name', 0)}")
         LAST_NAME = st.text_input("Last Name", placeholder="Enter your last name", icon=":material/id_card:", key=f"family_diamond_last_name_{st.session_state.get('family_diamond_counter_last_name', 0)}")
-        EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", key=f"family_diamond_email_{st.session_state.get('family_diamond_counter_email', 0)}")
-        mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key=f"family_diamond_mobile_number_{st.session_state.get('family_diamond_counter_mobile_number', 0)}")
-        if mobile_number_data and isinstance(mobile_number_data, dict):
-            MOBILE_NUMBER = mobile_number_data.get("number")
+        EMAIL = st.text_input("Email", placeholder="Enter your email", icon=":material/mail:", help="Please enter the correct email.", key=f"family_diamond_email_{st.session_state.get('family_diamond_counter_email', 0)}")
+        #mobile_number_data = st_phone_number("Mobile Number", placeholder="Enter your mobile number", default_country="GB", key=f"family_diamond_mobile_number_{st.session_state.get('family_diamond_counter_mobile_number', 0)}")
+        #if mobile_number_data and isinstance(mobile_number_data, dict):
+            #MOBILE_NUMBER = mobile_number_data.get("number")
+
+        MOBILE_NUMBER = st.text_input("Mobile Number", placeholder="Enter your mobile number (e.g.: +447xxxxxxxxx)", icon=":material/call:", help="Please enter the correct mobile number in the provided format without spaces.", key=f"family_diamond_mobile_number_{st.session_state.get('family_diamond_counter_mobile_number', 0)}")
 
         is_family_diamond_disabled = AVAILABLE_TICKET_COUNT is None or AVAILABLE_TICKET_COUNT == 0
         family_diamond_form_button_label = "Request one **Diamond** Order!" if not is_family_diamond_disabled else "No More Tickets Available!"
@@ -280,6 +305,8 @@ with DIAMOND_TAB:
     if family_diamond_form_submitted:
         if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
+        elif not mobile_number_verifier(MOBILE_NUMBER):
+            st.error("Please enter a valid mobile number in the format, +447xxxxxxxxx!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_family_diamond = {
