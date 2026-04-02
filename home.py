@@ -1,10 +1,12 @@
 import streamlit as st
 from datetime import datetime
 from utils import asset_gen
+from streamlit_folium import st_folium
+import folium
 
 @st.dialog(" ", width="small", dismissible=True)
 def select_booking():
-    st.subheader("Welcome to the :blue[USPC Ticket Booking Platform]", width="stretch")
+    st.subheader("Welcome to the :primary[USPC Ticket Booking Platform]", width="stretch")
 
     st.divider()
 
@@ -28,9 +30,36 @@ asset_gen.home_title("Voice of Grace - 2026")
 
 st.divider()
 
-with st.expander("Price & Booking Info (Please read before proceeding)", icon=":material/info:", expanded=False):
+with st.expander("Very Important Info (Click here to open)!", icon=":material/info:", expanded=False):
 
-    TARIFF_DETAILS_TAB, IMPORTANT_INFO_TAB, SUPPORT_TEAM_TAB = st.tabs(["Tariff Details", "Important Info", "Support Team"], width="stretch")
+    VENUE_DETAILS_TAB, TARIFF_DETAILS_TAB, IMPORTANT_INFO_TAB, TERMS_AND_CONDITIONS_TAB, SUPPORT_TEAM_TAB = st.tabs(["Venue Details", "Tariff Details", "Important Info", "Terms & Conditions", "Support Team"], width="stretch")
+
+    with VENUE_DETAILS_TAB:
+        st.subheader("Venue Details", divider="grey")
+
+        VENUE_MAP_CONTAINER = st.container(border=True)
+        with VENUE_MAP_CONTAINER:
+
+            vog_venue_map = folium.Map(location=[53.379954470015505, -2.2654038143669117])
+            folium.Marker(
+                [53.379954470015505, -2.2654038143669117],
+                popup="Forum Centre",
+                tooltip="Forum Centre"
+            ).add_to(vog_venue_map)
+
+            st_folium(vog_venue_map, zoom=15, width="stretch", height=300)
+
+        VENUE_DETAILS_CONTAINER = st.container(border=False)
+        with VENUE_DETAILS_CONTAINER:
+            st.markdown("#### :material/stadium: Venue Name: *Wythenshawe Forum Centre*")
+            st.markdown("#### :material/location_on: Address: *Poundswick Ln*")
+            st.markdown("#### :material/map_search: Postcode: *M22 9PQ*")
+            st.markdown("#### :material/location_city: City: *Manchester*")
+
+            st.divider()
+
+            st.markdown("#### :material/calendar_month: Date: *25th September, 2026*")
+            st.markdown("#### :material/nest_clock_farsight_analog: Time: *5:30 PM to 9:30 PM*")
 
     with TARIFF_DETAILS_TAB:
         tariff_category_options = ["Single", "Family"]
