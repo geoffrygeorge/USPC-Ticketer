@@ -143,21 +143,21 @@ with GOLD_TAB:
     if single_gold_form_submitted:
         if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
-        elif not mobile_number_verifier(MOBILE_NUMBER):
+        elif not mobile_number_verifier("".join(MOBILE_NUMBER.split())):
             st.error("Please enter a valid mobile number in the example format, +447xxxxxxxxx, without spaces!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_single_gold = {
-                "first_name": FIRST_NAME,
-                "last_name": LAST_NAME,
-                "mobile_number": MOBILE_NUMBER,
-                "email": EMAIL,
+                "first_name": FIRST_NAME.strip(),
+                "last_name": LAST_NAME.strip(),
+                "mobile_number": "".join(MOBILE_NUMBER.split()),
+                "email": EMAIL.strip(),
                 "category": FORM_CATEGORY,
                 "event_order_id": EVENT_ORDER_ID,
                 "ticket_type": FORM_TICKET_TYPE,
                 "formula": AVAILABLE_TICKET_FILTER_FORMULA
             }
-            show_single_gold_confirm_dialog(FIRST_NAME, LAST_NAME, MOBILE_NUMBER, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
+            show_single_gold_confirm_dialog(FIRST_NAME.strip(), LAST_NAME.strip(), "".join(MOBILE_NUMBER.split()), EMAIL.strip(), FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
 
 with PLATINUM_TAB:
 
@@ -240,21 +240,21 @@ with PLATINUM_TAB:
     if single_platinum_form_submitted:
         if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
-        elif not mobile_number_verifier(MOBILE_NUMBER):
+        elif not mobile_number_verifier("".join(MOBILE_NUMBER.split())):
             st.error("Please enter a valid mobile number in the example format, +447xxxxxxxxx, without spaces!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_single_platinum = {
-                "first_name": FIRST_NAME,
-                "last_name": LAST_NAME,
-                "mobile_number": MOBILE_NUMBER,
-                "email": EMAIL,
+                "first_name": FIRST_NAME.strip(),
+                "last_name": LAST_NAME.strip(),
+                "mobile_number": "".join(MOBILE_NUMBER.split()),
+                "email": EMAIL.strip(),
                 "category": FORM_CATEGORY,
                 "event_order_id": EVENT_ORDER_ID,
                 "ticket_type": FORM_TICKET_TYPE,
                 "formula": AVAILABLE_TICKET_FILTER_FORMULA
             }
-            show_single_platinum_confirm_dialog(FIRST_NAME, LAST_NAME, MOBILE_NUMBER, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
+            show_single_platinum_confirm_dialog(FIRST_NAME.strip(), LAST_NAME.strip(), "".join(MOBILE_NUMBER.split()), EMAIL.strip(), FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
 
 with DIAMOND_TAB:
 
@@ -337,18 +337,18 @@ with DIAMOND_TAB:
     if single_diamond_form_submitted:
         if not FIRST_NAME or not LAST_NAME or not MOBILE_NUMBER or not EMAIL:
             st.error("Please enter all the information!")
-        elif not mobile_number_verifier(MOBILE_NUMBER):
+        elif not mobile_number_verifier("".join(MOBILE_NUMBER.split())):
             st.error("Please enter a valid mobile number in the example format, +447xxxxxxxxx, without spaces!")
         else:
             # Store data to be used in dialog
             st.session_state.pending_booking_single_diamond = {
-                "first_name": FIRST_NAME,
-                "last_name": LAST_NAME,
-                "mobile_number": MOBILE_NUMBER,
-                "email": EMAIL,
+                "first_name": FIRST_NAME.strip(),
+                "last_name": LAST_NAME.strip(),
+                "mobile_number": "".join(MOBILE_NUMBER.split()),
+                "email": EMAIL.strip(),
                 "category": FORM_CATEGORY,
                 "event_order_id": EVENT_ORDER_ID,
                 "ticket_type": FORM_TICKET_TYPE,
                 "formula": AVAILABLE_TICKET_FILTER_FORMULA
             }
-            show_single_diamond_confirm_dialog(FIRST_NAME, LAST_NAME, MOBILE_NUMBER, EMAIL, FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
+            show_single_diamond_confirm_dialog(FIRST_NAME.strip(), LAST_NAME.strip(), "".join(MOBILE_NUMBER.split()), EMAIL.strip(), FORM_CATEGORY, EVENT_ORDER_ID, FORM_TICKET_TYPE, AVAILABLE_TICKET_FILTER_FORMULA)
