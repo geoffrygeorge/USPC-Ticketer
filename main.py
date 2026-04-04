@@ -33,6 +33,13 @@ def main():
                 #</style>
             #""")
 
+    # Hides the streamlit main menu items
+    st.html("""
+                <style>
+                    .stToolbarActions {visibility: hidden;}
+                </style>
+            """)
+
     # Hides the markdown text's anchor link icon
     st.html("""
                 <style>
