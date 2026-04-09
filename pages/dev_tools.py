@@ -62,17 +62,37 @@ if st.button("Fetch Ticket"):
                             
                             # 3. PDF CREATION LOGIC
                             pdf.add_page()
-                            pdf.set_draw_color(5, 31, 170) # Set border color (RGB)
+
+                            # BG IMAGE logic based on TICKET TYPES
+                            if TICKET_TYPE in ["Single - Gold (£30)", "Family - Gold (£100)"]:
+                                pdf.image("assets/GOLD_TICKET_BG.jpg", x=0, y=0, w=210, h=297)
+                            elif TICKET_TYPE in ["Single - Platinum (£40)", "Family - Platinum (£150)"]:
+                                pdf.image("assets/PLATINUM_TICKET_BG.jpg", x=0, y=0, w=210, h=297)
+                            elif TICKET_TYPE in ["Single - Diamond (£50)", "Family - Diamond (£175)"]:
+                                pdf.image("assets/DIAMOND_TICKET_BG.jpg", x=0, y=0, w=210, h=297)
+
+                            pdf.image("assets/USPC_LOGO.png", x=145, y=150, w=50)
+                            
+                            # Border Color logic based on TICKET TYPES
+                            if TICKET_TYPE in ["Single - Gold (£30)", "Family - Gold (£100)"]:
+                                pdf.set_draw_color(229, 184, 28) # GOLD (#E5B81C)
+                            elif TICKET_TYPE in ["Single - Platinum (£40)", "Family - Platinum (£150)"]:
+                                pdf.set_draw_color(204, 211, 203) # PLATINUM (#CCD3CB)
+                            elif TICKET_TYPE in ["Single - Diamond (£50)", "Family - Diamond (£175)"]:
+                                pdf.set_draw_color(237, 233, 248) # DIAMOND (#051FAA)
+                            else:
+                                pdf.set_draw_color(0, 0, 0) # BLACK
+                            
                             pdf.set_line_width(2.5) # Set border thickness
                             pdf.rect(5, 5, 200, 287) # Draw border: x, y, width, height
                             
                             # Add PDF Title
                             pdf.set_font("Helvetica", 'B', 22)
-                            pdf.cell(text="VOICE OF GRACE - 2026", align='C') # PDF Heading
+                            pdf.cell(text="USPC - MANCHESTER · VOICE OF GRACE - 2026", align='C', center=True) # PDF Heading
                             
                             # Add CODE Images
                             pdf.image(qr_img_data, x=10, y=25, w=120) # QR code on left
-                            pdf.image(barcode_img_data, x=130, y=35, w=60) # Rotated barcode on right
+                            pdf.image(barcode_img_data, x=135, y=35, w=60) # Rotated barcode on right
                             
                             # Add TICKET CODE text and value
                             pdf.set_xy(12, 160)
