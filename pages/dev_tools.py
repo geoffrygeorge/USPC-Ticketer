@@ -92,7 +92,7 @@ if st.button("Fetch Ticket"):
                             
                             # Add CODE Images
                             pdf.image(qr_img_data, x=10, y=25, w=120) # QR code on left
-                            pdf.image(barcode_img_data, x=135, y=35, w=60) # Rotated barcode on right
+                            pdf.image(barcode_img_data, x=135, y=30, w=65) # Rotated barcode on right
                             
                             # Add TICKET CODE text and value
                             pdf.set_xy(12, 160)
@@ -102,13 +102,24 @@ if st.button("Fetch Ticket"):
                             pdf.set_font("Helvetica", 'B', 70)
                             pdf.cell(text=str(TICKET_CODE), align='L')
 
-                            # ADD TICKET TYPE text and value
+                            # Add TICKET TYPE text and value
                             pdf.set_xy(12, 200)
                             pdf.set_font("Helvetica", '', 32)
                             pdf.cell(text="TICKET TYPE", align='L')
                             pdf.set_xy(12, 210)
                             pdf.set_font("Helvetica", 'B', 40)
                             pdf.cell(text=str(TICKET_TYPE), align='L')
+
+                            # Add EVENT Info
+                            pdf.set_xy(12, 240)
+                            pdf.set_font("Helvetica", '', 32)
+                            pdf.cell(text="EVENT DETAILS", align='L')
+                            pdf.set_xy(12, 250)
+                            pdf.set_font("Helvetica", 'B', 35)
+                            pdf.cell(text="Forum Centre, M22 9PQ", align='L')
+                            pdf.set_xy(12, 262)
+                            pdf.set_font("Helvetica", 'B', 30)
+                            pdf.cell(text="25th Sept 2026, 5:30 PM - 9:30 PM", align='L')
 
                         else:
                             st.error(f"Could not download the QR Code and Barcode images: {TICKET_CODE}!")
