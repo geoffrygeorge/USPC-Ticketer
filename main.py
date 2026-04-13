@@ -5,17 +5,17 @@ from utils import ticketer_bg
 
 def main():
     st.set_page_config(
-        page_title="USPC",
+        page_title="USPC Ticketer",
         page_icon="🎟️",
         initial_sidebar_state="auto",
         layout="centered",
         menu_items={
             "Report a bug": "mailto:jeffrygeorge58@gmail.com",
-            "About": "USPC Ticket Booking Application Version 1.0 ® 2026. All Rights Reserved."
+            "About": "USPC Manchester's Official Ticket Booking Application v1.2 ® 2026. All Rights Reserved."
         }
     )
 
-    # Hides the streamlit app header
+    # Added frosted glass effect to the streamlit app header
     st.html("""
                 <style>
                     .stAppHeader {

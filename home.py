@@ -5,7 +5,7 @@ from modules import expander_functions
 
 @st.dialog(" ", width="small", dismissible=True)
 def select_booking():
-    st.subheader("Welcome to the :primary[USPC Ticket Booking Platform]", width="stretch")
+    st.subheader("Welcome to :primary[USPC Manchester's Official Ticket Booker]", width="stretch")
 
     st.divider()
 
@@ -36,3 +36,19 @@ with BOOKING_BUTTON_COLUMN:
     if st.button("BOOK NOW!", type="primary", key="booking_primary", width="stretch", help="Start Booking!"):
         select_booking()
 
+asset_gen.sub_home_title("🌟Meet the Stars!🌟")
+
+st.divider()
+
+SD_COLUMN, SS_COLUMN, FX_COLUMN = st.columns([1, 1, 1], gap="large", vertical_alignment="center", border=False)
+with SD_COLUMN:
+    asset_gen.artist_image("assets/SD_PIC.png")
+    asset_gen.artist_name("Stephen Devassy")
+
+with SS_COLUMN:
+    asset_gen.artist_image("assets/SS_PIC.png")
+    asset_gen.artist_name("Steven Samuel") 
+
+with FX_COLUMN:
+    asset_gen.artist_image("assets/FX_PIC.png")
+    asset_gen.artist_name("Francis Xavier")
