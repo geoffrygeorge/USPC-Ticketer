@@ -1,10 +1,6 @@
 import streamlit as st
 from modules import doc_functions
 
-st.title("Voice of Grace")
-
-st.divider()
-
 if False:
     with st.expander("Very Important Info (Click here to open)!", icon=":material/info:", expanded=False):
 
