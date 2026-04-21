@@ -4,7 +4,7 @@ import folium
 from modules import doc_functions
 
 def info_expander(map_key, segmented_key):
-    with st.expander("Very Important Info (Click here to open)!", icon=":material/info:", expanded=False):
+    with st.expander("**Very Important Info (Click here to open)!**", icon=":material/info:", expanded=False):
 
         VENUE_DETAILS_TAB, TARIFF_DETAILS_TAB, TICKETS_INFO_TAB, TERMS_AND_CONDITIONS_TAB, PRIVACY_POLICY_TAB, SUPPORT_TEAM_TAB = st.tabs(["Venue Details", "Tariff Details", "Tickets Info", "Terms & Conditions", "Privacy Policy", "Support Team"], width="stretch")
 
